@@ -81,16 +81,16 @@ const TelemetryProvider = ({ children }: TelemetryProviderProps) => {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      activepiecesVersion: currentVersion,
-      activepiecesEnvironment: environment,
-      ui: 'react',
+      kvcVersion: currentVersion, // KVC: Changed property name
+      kvcEnvironment: environment, // KVC: Changed property name
+      ui: 'react-kvc', // KVC: Added suffix
     });
 
     newAnalytics.ready(() => {
-      posthog.init('phc_7F92HoXJPeGnTKmYv0eOw62FurPMRW9Aqr0TPrDzvHh', {
+      posthog.init('KVC_POSTHOG_API_KEY_PLACEHOLDER', { // KVC: Placeholder for KVC PostHog API Key
         autocapture: false,
         capture_pageview: false,
-        segment: (window as any).analytics,
+        segment: (window as any).analytics, // KVC: Consider renaming 'analytics' global object if it's KVC specific
         loaded: () => newAnalytics.page(),
       });
 
@@ -98,8 +98,8 @@ const TelemetryProvider = ({ children }: TelemetryProviderProps) => {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        activepiecesVersion: currentVersion,
-        activepiecesEnvironment: environment,
+        kvcVersion: currentVersion, // KVC: Changed property name
+        kvcEnvironment: environment, // KVC: Changed property name
       });
     });
     setAnalytics(newAnalytics);

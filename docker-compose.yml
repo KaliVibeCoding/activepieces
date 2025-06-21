@@ -1,43 +1,41 @@
 version: '3.0'
 services:
-  activepieces:
-    image: ghcr.io/activepieces/activepieces:0.52.2
-    container_name: activepieces
+  kalivibecoding: # KVC: Service name changed
+    image: ghcr.io/kalivibecoding/kalivibecoding:1.0.0 # KVC: Image name and version changed
+    container_name: kalivibecoding # KVC: Container name changed
     restart: unless-stopped
-    ## Enable the following line if you already use AP_EXECUTION_MODE with SANDBOXED or old activepieces, checking the breaking change documentation for more info.
-    ## privileged: true
     ports:
-      - '8080:80'
+      - '8080:80' # KVC: Port mapping retained, internal port might change based on app
     depends_on:
-      - postgres
-      - redis
-    env_file: .env
+      - kvc-postgres # KVC: Dependency name changed
+      - kvc-redis # KVC: Dependency name changed
+    env_file: .env # KVC: Ensure .env file variables are updated (e.g. AP_POSTGRES_DATABASE to KVC_POSTGRES_DATABASE)
     volumes:
-      - ./cache:/usr/src/app/cache
+      - ./kvc-cache:/usr/src/app/cache # KVC: Volume name changed
     networks:
-      - activepieces
-  postgres:
-    image: 'postgres:14.4'
-    container_name: postgres
+      - kalivibecoding # KVC: Network name changed
+  kvc-postgres: # KVC: Service name changed
+    image: 'postgres:15-alpine' # KVC: Updated to a more recent postgres version
+    container_name: kalivibecoding-postgres # KVC: Container name changed
     restart: unless-stopped
     environment:
-      - 'POSTGRES_DB=${AP_POSTGRES_DATABASE}'
-      - 'POSTGRES_PASSWORD=${AP_POSTGRES_PASSWORD}'
-      - 'POSTGRES_USER=${AP_POSTGRES_USERNAME}'
+      - 'POSTGRES_DB=${KVC_POSTGRES_DATABASE:-kalivibecoding}' # KVC: Variable name and default changed
+      - 'POSTGRES_PASSWORD=${KVC_POSTGRES_PASSWORD:-kvcpassword}' # KVC: Variable name and default changed
+      - 'POSTGRES_USER=${KVC_POSTGRES_USERNAME:-kvcuser}' # KVC: Variable name and default changed
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - kalivibecoding_postgres_data:/var/lib/postgresql/data # KVC: Volume name changed
     networks:
-      - activepieces
-  redis:
-    image: 'redis:7.0.7'
-    container_name: redis
+      - kalivibecoding # KVC: Network name changed
+  kvc-redis: # KVC: Service name changed
+    image: 'redis:7.2-alpine' # KVC: Updated to a more recent redis version
+    container_name: kalivibecoding-redis # KVC: Container name changed
     restart: unless-stopped
     volumes:
-      - 'redis_data:/data'
+      - 'kalivibecoding_redis_data:/data' # KVC: Volume name changed
     networks:
-      - activepieces
+      - kalivibecoding # KVC: Network name changed
 volumes:
-  postgres_data:
-  redis_data:
+  kalivibecoding_postgres_data: # KVC: Volume name changed
+  kalivibecoding_redis_data: # KVC: Volume name changed
 networks:
-  activepieces:
+  kalivibecoding: # KVC: Network name changed

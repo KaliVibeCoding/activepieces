@@ -1,0 +1,22 @@
+encryptionsalt: v1:wHCVNl3bj/g=:v1:mxogi9ZeBjIcxNZC:q+bjpLv9rnJnu8qq7xwKGLd/GAZOqA==
+config:
+  kalivibecoding:environment: "dev" # KVC: Config key updated
+  kalivibecoding:kvcEncryptionKey: # KVC: Config key updated
+  kalivibecoding:kvcJwtSecret: # KVC: Config key updated
+  kalivibecoding:deployLocalBuild: "false" # KVC: Config key updated
+  kalivibecoding:repoName: # KVC: Config key updated
+  kalivibecoding:containerCpu: "256" # KVC: Config key updated
+  kalivibecoding:containerMemory: "512" # KVC: Config key updated
+  kalivibecoding:containerInstances: "1" # KVC: Config key updated
+  kalivibecoding:usePostgres: "false" # KVC: Config key updated
+  kalivibecoding:dbInstanceClass: "db.t3.small" # KVC: Config key updated
+  kalivibecoding:dbUsername: "kvcuser" # KVC: Default username updated
+  kalivibecoding:dbIsPublic: "false" # KVC: Config key updated
+  kalivibecoding:dbPassword: # KVC: Config key updated
+    secure: v1:MXNSOcqZCp10X2PX:mU2iTrcETjdisk8FkD5yHLJYUxRei/9l
+  kalivibecoding:addIpToPostgresSecurityGroup: # KVC: Config key updated
+  kalivibecoding:useRedis: "false" # KVC: Config key updated
+  kalivibecoding:redisNodeType: "cache.t3.small" # KVC: Config key updated
+  kalivibecoding:domain: # KVC: Config key updated
+  kalivibecoding:subDomain: # KVC: Config key updated
+  aws:region: "us-east-1"

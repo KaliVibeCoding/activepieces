@@ -7,12 +7,12 @@ import { registerAutoTags } from './autotag';
 import * as child_process from "child_process";
 
 const stack = pulumi.getStack();
-const config = new pulumi.Config();
+const config = new pulumi.Config("kalivibecoding"); // KVC: Changed config namespace
 
-const apEncryptionKey = config.getSecret("apEncryptionKey")?.apply(secretValue => {
+const kvcEncryptionKey = config.getSecret("kvcEncryptionKey")?.apply(secretValue => { // KVC: Changed variable and config key
     return secretValue || child_process.execSync("openssl rand -hex 16").toString().trim();
 });
-const apJwtSecret = config.getSecret("apJwtSecret")?.apply(secretValue => {
+const kvcJwtSecret = config.getSecret("kvcJwtSecret")?.apply(secretValue => { // KVC: Changed variable and config key
     return secretValue || child_process.execSync("openssl rand -hex 32").toString().trim();
 });
 const containerCpu = config.requireNumber("containerCpu");
@@ -84,7 +84,7 @@ if (config.getBoolean("deployLocalBuild")) {
 
     pulumi.log.info(`Finished pushing image to ECR`, image);
 } else {
-    imageName = process.env.IMAGE_NAME || config.get("imageName") || "activepieces/activepieces:latest";
+    imageName = process.env.IMAGE_NAME || config.get("imageName") || "kalivibecoding/kalivibecoding:latest"; // KVC: Changed default image name
 }
 
 const containerEnvironmentVars: awsx.types.input.ecs.TaskDefinitionKeyValuePairArgs[] = [];
@@ -215,55 +215,55 @@ if (usePostgres) {
 
     containerEnvironmentVars.push(
         {
-            name: "AP_POSTGRES_DATABASE",
+            name: "KVC_POSTGRES_DATABASE", // KVC: Env var name updated
             value: db.dbName
         },
         {
-            name: "AP_POSTGRES_HOST",
+            name: "KVC_POSTGRES_HOST", // KVC: Env var name updated
             value: db.address
         },
         {
-            name: "AP_POSTGRES_PORT",
+            name: "KVC_POSTGRES_PORT", // KVC: Env var name updated
             value: pulumi.interpolate`${db.port}`
         },
         {
-            name: "AP_POSTGRES_USERNAME",
+            name: "KVC_POSTGRES_USERNAME", // KVC: Env var name updated
             value: db.username
         },
         {
-            name: "AP_POSTGRES_PASSWORD",
-            value: config.requireSecret("dbPassword")
+            name: "KVC_POSTGRES_PASSWORD", // KVC: Env var name updated
+            value: config.requireSecret("dbPassword") // KVC: Ensure this secret name matches updated pulumi config if changed
         },
         {
-            name: "AP_POSTGRES_USE_SSL",
+            name: "KVC_POSTGRES_USE_SSL", // KVC: Env var name updated
             value: "false"
         });
 
 } else {
     containerEnvironmentVars.push(
         {
-            name: "AP_DB_TYPE",
+            name: "KVC_DB_TYPE", // KVC: Env var name updated
             value: "SQLITE3"
         });
 }
 
 if (useRedis) {
 
-    const redisCluster = new aws.elasticache.Cluster(`${stack}-redis-cluster`, {
-        clusterId: `${stack}-redis-cluster`,
+    const redisCluster = new aws.elasticache.Cluster(`${stack}-kvc-redis-cluster`, { // KVC: Resource name updated
+        clusterId: `${stack}-kvc-redis-cluster`, // KVC: Resource name updated
         engine: "redis",
         engineVersion: '7.0',
         nodeType: redisNodeType,
         numCacheNodes: 1,
         parameterGroupName: "default.redis7",
         port: 6379,
-        subnetGroupName: new aws.elasticache.SubnetGroup(`${stack}-redis-subnet-group`, {
-            name: `${stack}-redis-subnet-group`,
+        subnetGroupName: new aws.elasticache.SubnetGroup(`${stack}-kvc-redis-subnet-group`, { // KVC: Resource name updated
+            name: `${stack}-kvc-redis-subnet-group`, // KVC: Resource name updated
             subnetIds: vpc.privateSubnetIds
         }).id,
         securityGroupIds: [
-            new aws.ec2.SecurityGroup(`${stack}-redis-sg`, {
-                name: `${stack}-redis-sg`,
+            new aws.ec2.SecurityGroup(`${stack}-kvc-redis-sg`, { // KVC: Resource name updated
+                name: `${stack}-kvc-redis-sg`, // KVC: Resource name updated
                 vpcId: vpc.vpcId,
                 ingress: [{
                     protocol: "tcp",
@@ -284,14 +284,14 @@ if (useRedis) {
     const redisUrl = pulumi.interpolate`${redisCluster.cacheNodes[0].address}:${redisCluster.cacheNodes[0].port}`;
     containerEnvironmentVars.push(
         {
-            name: "AP_REDIS_URL",
+            name: "KVC_REDIS_URL", // KVC: Env var name updated
             value: redisUrl
         });
 
 } else {
     containerEnvironmentVars.push(
         {
-            name: "AP_QUEUE_MODE",
+            name: "KVC_QUEUE_MODE", // KVC: Env var name updated
             value: "MEMORY"
         });
 }
@@ -387,55 +387,55 @@ if (subDomain && domain) {
 const environmentVariables = [
     ...containerEnvironmentVars,
     {
-        name: "AP_ENGINE_EXECUTABLE_PATH",
-        value: "dist/packages/engine/main.js"
+        name: "KVC_ENGINE_EXECUTABLE_PATH", // KVC: Env var name updated
+        value: "dist/packages/kvc-engine/main.js" // KVC: Path updated
     },
     {
-        name: "AP_ENCRYPTION_KEY",
-        value: apEncryptionKey
+        name: "KVC_ENCRYPTION_KEY", // KVC: Env var name updated
+        value: kvcEncryptionKey // KVC: Variable name updated
     },
     {
-        name: "AP_JWT_SECRET",
-        value: apJwtSecret
+        name: "KVC_JWT_SECRET", // KVC: Env var name updated
+        value: kvcJwtSecret // KVC: Variable name updated
     },
     {
-        name: "AP_ENVIRONMENT",
+        name: "KVC_ENVIRONMENT", // KVC: Env var name updated
         value: "prod"
     },
     {
-        name: "AP_FRONTEND_URL",
+        name: "KVC_FRONTEND_URL", // KVC: Env var name updated
         value: frontendUrl
     },
     {
-        name: "AP_TRIGGER_DEFAULT_POLL_INTERVAL",
+        name: "KVC_TRIGGER_DEFAULT_POLL_INTERVAL", // KVC: Env var name updated
         value: "5"
     },
     {
-        name: "AP_EXECUTION_MODE",
+        name: "KVC_EXECUTION_MODE", // KVC: Env var name updated
         value: "UNSANDBOXED"
     },
     {
-        name: "AP_REDIS_USE_SSL",
+        name: "KVC_REDIS_USE_SSL", // KVC: Env var name updated
         value: "false"
     },
     {
-        name: "AP_SANDBOX_RUN_TIME_SECONDS",
+        name: "KVC_SANDBOX_RUN_TIME_SECONDS", // KVC: Env var name updated
         value: "600"
     },
     {
-        name: "AP_TELEMETRY_ENABLED",
+        name: "KVC_TELEMETRY_ENABLED", // KVC: Env var name updated
         value: "true"
     },
     {
-        name: "AP_TEMPLATES_SOURCE_URL",
-        value: "https://cloud.activepieces.com/api/v1/flow-templates"
+        name: "KVC_TEMPLATES_SOURCE_URL", // KVC: Env var name updated
+        value: "https://cloud.kalivibecoding.com/api/v1/blueprint-templates" // KVC: URL updated
     }
 ];
 
-const fargateService = new awsx.ecs.FargateService(`${stack}-fg`, {
-    name: `${stack}-fg`,
-    cluster: (new aws.ecs.Cluster(`${stack}-cluster`, {
-        name: `${stack}-cluster`
+const fargateService = new awsx.ecs.FargateService(`${stack}-kvc-fg`, { // KVC: Resource name updated
+    name: `${stack}-kvc-fg`, // KVC: Resource name updated
+    cluster: (new aws.ecs.Cluster(`${stack}-kvc-cluster`, { // KVC: Resource name updated
+        name: `${stack}-kvc-cluster` // KVC: Resource name updated
     })).arn,
     networkConfiguration: {
         subnets: vpc.publicSubnetIds,
@@ -444,9 +444,9 @@ const fargateService = new awsx.ecs.FargateService(`${stack}-fg`, {
     },
     desiredCount: containerInstances,
     taskDefinitionArgs: {
-        family: `${stack}-fg-task-definition`,
+        family: `${stack}-kvc-fg-task-definition`, // KVC: Resource name updated
         container: {
-            name: "activepieces",
+            name: "kalivibecoding", // KVC: Container name updated
             image: imageName,
             cpu: containerCpu,
             memory: containerMemory,
@@ -458,9 +458,9 @@ const fargateService = new awsx.ecs.FargateService(`${stack}-fg`, {
     }
 });
 
-pulumi.log.info("Finished running Pulumi");
+pulumi.log.info("Finished KVC Pulumi deployment configuration."); // KVC: Log message updated
 
 export const _ = {
-    activePiecesUrl: frontendUrl,
-    activepiecesEnv: environmentVariables
+    kaliVibeCodingUrl: frontendUrl, // KVC: Export name updated
+    kaliVibeCodingEnv: environmentVariables // KVC: Export name updated
 };

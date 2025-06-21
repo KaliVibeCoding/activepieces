@@ -311,7 +311,7 @@ const SignUpForm = ({
                     ></Checkbox>
                   </FormControl>
                   <Label htmlFor="newsLetter">
-                    {t(`Receive updates and newsletters from activepieces`)}
+                    {t(`Receive updates and newsletters from KaliVibeCoding`)} {/* KVC: Brand name update */}
                   </Label>
                   <FormMessage />
                 </FormItem>
@@ -328,36 +328,36 @@ const SignUpForm = ({
             loading={isPending}
             onClick={(e) => form.handleSubmit(onSubmit)(e)}
           >
-            {t('Sign up')}
+            {t('Create KVC Identity')} {/* KVC: Changed "Sign up" */}
           </Button>
         </form>
       </Form>
 
-      {edition === ApEdition.CLOUD && (
+      {edition === ApEdition.CLOUD && ( // KVC: This condition might need review based on KVC editions
         <div
           className={cn('text-center text-sm', {
             'mt-4': termsOfServiceUrl || privacyPolicyUrl,
           })}
         >
           {(termsOfServiceUrl || privacyPolicyUrl) &&
-            t('By creating an account, you agree to our')}
+            t('By creating your KVC Identity, you agree to our')} {/* KVC: Brand voice update */}
           {termsOfServiceUrl && (
             <Link
-              to={termsOfServiceUrl || ''}
+              to={termsOfServiceUrl || ''} // KVC: Ensure this URL points to KVC terms
               target="_blank"
               className="px-1 text-muted-foreground hover:text-primary text-sm transition-all duration-200"
             >
-              {t('terms of service')}
+              {t('Terms of Vision')} {/* KVC: Brand voice update */}
             </Link>
           )}
           {termsOfServiceUrl && privacyPolicyUrl && t('and')}
           {privacyPolicyUrl && (
             <Link
-              to={privacyPolicyUrl || ''}
+              to={privacyPolicyUrl || ''} // KVC: Ensure this URL points to KVC policy
               target="_blank"
               className="pl-1 text-muted-foreground hover:text-primary text-sm transition-all duration-200"
             >
-              {t('privacy policy')}
+              {t('Privacy Protocol')} {/* KVC: Brand voice update */}
             </Link>
           )}
           .

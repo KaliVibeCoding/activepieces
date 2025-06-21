@@ -3,21 +3,28 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Activepieces</title>
+  <title>KaliVibeCoding</title> {/* KVC: Updated title */}
   <base href="/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/x-icon" href="https://cdn.activepieces.com/brand/favicon.ico" />
+  {/* KVC: Update favicon path to a KVC hosted or local favicon */}
+  <link rel="icon" type="image/svg+xml" href="/kvc-favicon.svg" />
   <link rel="stylesheet" href="/src/styles.css" />
 
-  <!-- Link to Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  {/* KVC: Consider KVC brand fonts. Example: Montserrat and a Mono font for code.
+       For now, keeping Roboto but this is a key branding touchpoint.
+       The Neon Hustler aesthetic might call for something like 'Orbitron' or 'Press Start 2P' for headers
+       and a clean sans-serif like 'Montserrat' or 'Lato' for body text.
+  */}
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
-  <!-- Apply Roberto font -->
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
-      /* Use Roberto font as the primary font */
+      font-family: 'Montserrat', 'Roboto', sans-serif; /* KVC: Updated font stack */
+    }
+    /* KVC: Example of using a neon-noir display font for specific elements if desired */
+    .kvc-display-font {
+      font-family: 'Orbitron', sans-serif;
     }
   </style>
 </head>

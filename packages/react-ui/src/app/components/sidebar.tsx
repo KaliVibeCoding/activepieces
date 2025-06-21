@@ -39,7 +39,8 @@ import { ApEdition, ApFlagId } from '@activepieces/shared';
 import { ShowPoweredBy } from '../../components/show-powered-by';
 import { platformHooks } from '../../hooks/platform-hooks';
 
-import { ApDashboardSidebarHeader } from './ap-dashboard-sidebar-header';
+// KVC Change: Import renamed component
+import { KVCDashboardSidebarHeader as ApDashboardSidebarHeader } from './kvc-dashboard-sidebar-header';
 import { HelpAndFeedback } from './help-and-feedback';
 import { SidebarPlatformAdminButton } from './sidebar-platform-admin';
 import { SidebarUser } from './sidebar-user';

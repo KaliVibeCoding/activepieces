@@ -29,22 +29,22 @@ const BottomNote = ({ isSignup }: { isSignup: boolean }) => {
 
   return isSignup ? (
     <div className="mb-4 text-center text-sm">
-      {t('Already have an account?')}
+      {t('Already plugged into the Vibe?')} {/* KVC: Brand voice update */}
       <Link
         to={`/sign-in?${searchQuery}`}
         className="pl-1 text-muted-foreground hover:text-primary text-sm transition-all duration-200"
       >
-        {t('Sign in')}
+        {t('Illuminate Session')} {/* KVC: Changed "Sign in" */}
       </Link>
     </div>
   ) : (
     <div className="mb-4 text-center text-sm">
-      {t("Don't have an account?")}
+      {t("New to the Neon Grid?")} {/* KVC: Brand voice update */}
       <Link
         to={`/sign-up?${searchQuery}`}
         className="pl-1 text-muted-foreground hover:text-primary text-sm transition-all duration-200"
       >
-        {t('Sign up')}
+        {t('Create Your KVC Identity')} {/* KVC: Changed "Sign up" */}
       </Link>
     </div>
   );
@@ -79,13 +79,13 @@ const AuthFormTemplate = React.memo(
     );
     const data = {
       signin: {
-        title: t('Welcome Back!'),
-        description: t('Enter your email below to sign in to your account'),
+        title: t('Welcome Back to the Neon Grid!'), // KVC: Brand voice
+        description: t('Enter your credentials to continue your KVC journey.'), // KVC: Brand voice
         showNameFields: false,
       },
       signup: {
-        title: t("Let's Get Started!"),
-        description: t('Create your account and start flowing!'),
+        title: t('Join the KaliVibe!'), // KVC: Brand voice
+        description: t('Create your KVC identity and electrify your workflow.'), // KVC: Brand voice
         showNameFields: true,
       },
     }[form];

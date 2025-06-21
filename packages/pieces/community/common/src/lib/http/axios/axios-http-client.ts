@@ -22,6 +22,7 @@ export class AxiosHttpClient extends BaseHttpClient {
     request: HttpRequest<HttpRequestBody>
   ): Promise<HttpResponse<ResponseBody>> {
     try {
+      // KVC Security Note: Consider making NODE_TLS_REJECT_UNAUTHORIZED configurable for production environments.
       process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
       const { urlWithoutQueryParams, queryParams: urlQueryParams } = this.getUrl(request);
       const headers = this.getHeaders(request);
@@ -49,7 +50,12 @@ export class AxiosHttpClient extends BaseHttpClient {
           retries: request.retries,
           retryDelay: axiosRetry.exponentialDelay,
           retryCondition: (error) => {
-            return axiosRetry.isNetworkOrIdempotentRequestError(error) || (error.response && error.response.status >= 500) || false;
+            // KVC Logic: Enhanced retry condition logging
+            const shouldRetry = axiosRetry.isNetworkOrIdempotentRequestError(error) || (error.response && error.response.status >= 500) || false;
+            if (shouldRetry) {
+              console.warn(`[KVCHttpClient#sendRequest] Retrying request to ${request.url}, attempt ${error.config?.['axios-retry']?.retryCount + 1} due to ${error.message}`);
+            }
+            return shouldRetry;
           },
         });
       }
@@ -62,14 +68,14 @@ export class AxiosHttpClient extends BaseHttpClient {
         body: response.data,
       };
     } catch (e) {
-      console.error('[HttpClient#sendRequest] error:', e);
+      console.error('[KVCHttpClient#sendRequest] error:', e);
       if (axios.isAxiosError(e)) {
         console.error(
-          '[HttpClient#sendRequest] error, responseStatus:',
+          '[KVCHttpClient#sendRequest] error, responseStatus:',
           e.response?.status
         );
         console.error(
-          '[HttpClient#sendRequest] error, responseBody:',
+          '[KVCHttpClient#sendRequest] error, responseBody:',
           JSON.stringify(e.response?.data)
         );
 

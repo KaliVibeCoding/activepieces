@@ -1,7 +1,7 @@
-import { ApplicationEventName, AuthenticationEvent, ConnectionEvent, FlowCreatedEvent, FlowDeletedEvent, FlowRunEvent, FolderEvent, GitRepoWithoutSensitiveData, ProjectMember, ProjectReleaseEvent, ProjectRoleEvent, SigningKeyEvent, SignUpEvent } from '@activepieces/ee-shared'
-import { PieceMetadata } from '@activepieces/pieces-framework'
-import { AppSystemProp, exceptionHandler, rejectedPromiseHandler } from '@activepieces/server-shared'
-import { ApEdition, ApEnvironment, AppConnectionWithoutSensitiveData, Flow, FlowRun, FlowTemplate, Folder, isNil, McpPieceWithConnection, McpWithPieces, ProjectRelease, ProjectWithLimits, spreadIfDefined, UserInvitation } from '@activepieces/shared'
+import { ApplicationEventName, AuthenticationEvent, ConnectionEvent, FlowCreatedEvent, FlowDeletedEvent, FlowRunEvent, FolderEvent, GitRepoWithoutSensitiveData, ProjectMember, ProjectReleaseEvent, ProjectRoleEvent, SigningKeyEvent, SignUpEvent } from '@kvc/ee-shared' // KVC: Scope updated
+import { PieceMetadata } from '@kvc/pieces-framework' // KVC: Scope updated
+import { AppSystemProp, exceptionHandler, rejectedPromiseHandler } from '@kvc/server-shared' // KVC: Scope updated
+import { ApEdition, ApEnvironment, AppConnectionWithoutSensitiveData, Flow, FlowRun, FlowTemplate, Folder, isNil, McpPieceWithConnection, McpWithPieces, ProjectRelease, ProjectWithLimits, spreadIfDefined, UserInvitation } from '@kvc/shared' // KVC: Scope updated
 import swagger from '@fastify/swagger'
 import { createAdapter } from '@socket.io/redis-adapter'
 import { FastifyInstance, FastifyRequest, HTTPMethods } from 'fastify'
@@ -102,15 +102,15 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
         openapi: {
             servers: [
                 {
-                    url: 'https://cloud.activepieces.com/api',
-                    description: 'Production Server',
+                    url: 'https://cloud.kalivibecoding.com/api', // KVC: URL updated
+                    description: 'KVC Production Server', // KVC: Description updated
                 },
             ],
             components: {
                 securitySchemes: {
                     apiKey: {
                         type: 'http',
-                        description: 'Use your api key generated from the admin console',
+                        description: 'Use your KVC API key generated from the admin console', // KVC: Description updated
                         scheme: 'bearer',
                     },
                 },
@@ -131,15 +131,15 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
                     [ApplicationEventName.SIGNING_KEY_CREATED]: SigningKeyEvent,
                     [ApplicationEventName.PROJECT_ROLE_CREATED]: ProjectRoleEvent,
                     [ApplicationEventName.PROJECT_RELEASE_CREATED]: ProjectReleaseEvent,
-                    'flow-template': FlowTemplate,
+                    'flow-template': FlowTemplate, // KVC: Consider 'blueprint-template'
                     'folder': Folder,
                     'user-invitation': UserInvitation,
                     'project-member': ProjectMember,
                     project: ProjectWithLimits,
-                    flow: Flow,
-                    'flow-run': FlowRun,
-                    'app-connection': AppConnectionWithoutSensitiveData,
-                    piece: PieceMetadata,
+                    flow: Flow, // KVC: Consider 'sequence'
+                    'flow-run': FlowRun, // KVC: Consider 'sequence-run'
+                    'app-connection': AppConnectionWithoutSensitiveData, // KVC: Consider 'kvc-connection'
+                    piece: PieceMetadata, // KVC: Consider 'connector' or 'kvc-piece'
                     'git-repo': GitRepoWithoutSensitiveData,
                     'project-release': ProjectRelease,
                     'global-connection': AppConnectionWithoutSensitiveData,
@@ -148,12 +148,12 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
                 },
             },
             info: {
-                title: 'Activepieces Documentation',
-                version: '0.0.0',
+                title: 'KaliVibeCoding API Documentation', // KVC: Title updated
+                version: '1.0.0', // KVC: Version updated
             },
             externalDocs: {
-                url: 'https://www.activepieces.com/docs',
-                description: 'Find more info here',
+                url: 'https://www.kalivibecoding.com/docs', // KVC: URL updated
+                description: 'Find more KVC info here', // KVC: Description updated
             },
         },
     })
@@ -266,9 +266,9 @@ export const setupApp = async (app: FastifyInstance): Promise<FastifyInstance> =
     const edition = system.getEdition()
     app.log.info({
         edition,
-    }, 'Activepieces Edition')
+    }, 'KaliVibeCoding Edition') // KVC: Text updated
     switch (edition) {
-        case ApEdition.CLOUD:
+        case ApEdition.CLOUD: // KVC: This might be KVCCloudEdition or similar if enum is changed
             await app.register(appCredentialModule)
             await app.register(connectionKeyModule)
             await app.register(platformProjectModule)
@@ -378,21 +378,22 @@ export async function appPostBoot(app: FastifyInstance): Promise<void> {
  / ____ \\  | |____     | |     _| |_     \\  /    | |____  | |       _| |_  | |____  | |____  | |____   ____) |
 /_/    \\_\\  \\_____|    |_|    |_____|     \\/     |______| |_|      |_____| |______|  \\_____| |______| |_____/
 
-The application started on ${await domainHelper.getPublicApiUrl({ path: '' })}, as specified by the AP_FRONTEND_URL variables.`)
+KaliVibeCoding - Electrify Your Code. Amplify Your Vision.
+The application started on ${await domainHelper.getPublicApiUrl({ path: '' })}, as specified by the KVC_FRONTEND_URL variables.`) // KVC: Text and variable updated
 
     const environment = system.get(AppSystemProp.ENVIRONMENT)
-    const piecesSource = system.getOrThrow(AppSystemProp.PIECES_SOURCE)
-    const pieces = process.env.AP_DEV_PIECES
+    const piecesSource = system.getOrThrow(AppSystemProp.PIECES_SOURCE) // KVC: Consider KVC_CONNECTORS_SOURCE
+    const pieces = process.env.KVC_DEV_CONNECTORS // KVC: Variable name updated
 
     app.log.warn(
-        `[WARNING]: Pieces will be loaded from source type ${piecesSource}`,
+        `[KVC WARNING]: Connectors (Pieces) will be loaded from source type ${piecesSource}`, // KVC: Text updated
     )
-    if (environment === ApEnvironment.DEVELOPMENT) {
+    if (environment === ApEnvironment.DEVELOPMENT) { // KVC: ApEnvironment might need to be KVCEnvironment
         app.log.warn(
-            `[WARNING]: The application is running in ${environment} mode.`,
+            `[KVC WARNING]: The application is running in ${environment} mode.`, // KVC: Text updated
         )
         app.log.warn(
-            `[WARNING]: This is only shows pieces specified in AP_DEV_PIECES ${pieces} environment variable.`,
+            `[KVC WARNING]: This only shows connectors specified in KVC_DEV_CONNECTORS ${pieces} environment variable.`, // KVC: Text and variable updated
         )
     }
     const oldestPlatform = await platformService.getOldestPlatform()

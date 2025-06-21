@@ -1,32 +1,45 @@
 {
-  "name": "activepieces",
-  "version": "0.52.2",
-  "rcVersion": "0.53.0-rc.0",
+  "name": "kalivibecoding",
+  "version": "1.0.0",
+  "description": "Electrify Your Code. Amplify Your Vision.",
+  "author": "KaliVibeCoding",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KaliVibeCoding/kalivibecoding.git"
+  },
+  "keywords": [
+    "neon-noir",
+    "california",
+    "automation",
+    "ai",
+    "typescript"
+  ],
   "scripts": {
     "prepare": "husky install",
-    "serve:frontend": "nx serve react-ui",
-    "serve:backend": "nx serve server-api",
-    "serve:engine": "nx serve engine",
-    "dev": "concurrently -n \"GUI,API,ENG\" -c \"bgBlue.bold,bgGreen.bold,bgRed.bold\" \"npm:serve:frontend\" \"npm:serve:backend\" \"npm:serve:engine\"",
-    "dev:backend": "concurrently -n \"API,ENG\" -c \"bgGreen.bold,bgRed.bold\" \"npm:serve:backend\" \"npm:serve:engine\"",
-    "dev:frontend": "concurrently -n \"GUI,API,ENG\" -c \"bgBlue.bold,bgGreen.bold,bgRed.bold\" \"npm:serve:frontend\" \"npm:serve:backend\" \"npm:serve:engine\"",
+    "serve:frontend": "nx serve kvc-react-ui",
+    "serve:backend": "nx serve kvc-server-api",
+    "serve:engine": "nx serve kvc-engine",
+    "dev": "concurrently -n \"UI,API,ENGINE\" -c \"bgMagenta.bold,bgCyan.bold,bgYellow.bold\" \"npm:serve:frontend\" \"npm:serve:backend\" \"npm:serve:engine\"",
+    "dev:backend": "concurrently -n \"API,ENGINE\" -c \"bgCyan.bold,bgYellow.bold\" \"npm:serve:backend\" \"npm:serve:engine\"",
+    "dev:frontend": "concurrently -n \"UI,API,ENGINE\" -c \"bgMagenta.bold,bgCyan.bold,bgYellow.bold\" \"npm:serve:frontend\" \"npm:serve:backend\" \"npm:serve:engine\"",
     "start": "npm i && npm run dev",
-    "cli": "npx ts-node packages/cli/src/index.ts",
-    "create-piece": "npx ts-node packages/cli/src/index.ts pieces create",
-    "create-action": "npx ts-node packages/cli/src/index.ts actions create",
-    "create-trigger": "npx ts-node packages/cli/src/index.ts triggers create",
-    "sync-pieces": "npx ts-node packages/cli/src/index.ts pieces sync",
-    "build-piece": "npx ts-node packages/cli/src/index.ts pieces build",
-    "publish-piece-to-api": "npx ts-node packages/cli/src/index.ts pieces publish piece",
+    "cli": "npx ts-node packages/kvc-cli/src/index.ts",
+    "create-piece": "npx ts-node packages/kvc-cli/src/index.ts pieces create",
+    "create-action": "npx ts-node packages/kvc-cli/src/index.ts actions create",
+    "create-trigger": "npx ts-node packages/kvc-cli/src/index.ts triggers create",
+    "sync-pieces": "npx ts-node packages/kvc-cli/src/index.ts pieces sync",
+    "build-piece": "npx ts-node packages/kvc-cli/src/index.ts pieces build",
+    "publish-piece-to-api": "npx ts-node packages/kvc-cli/src/index.ts pieces publish piece",
     "publish-piece": "npx ts-node tools/scripts/pieces/publish-piece.ts",
-    "workers": "npx ts-node packages/cli/src/index.ts workers",
+    "workers": "npx ts-node packages/kvc-cli/src/index.ts workers",
     "pull-i18n": "crowdin pull --config crowdin.yml",
     "push-i18n": "crowdin upload sources",
-    "i18n:extract": "i18next --config packages/react-ui/i18next-parser.config.js && jq 'to_entries | map({(.key): .key}) | add' packages/react-ui/public/locales/en/translation.json > packages/react-ui/public/locales/en/translation.tmp.json && mv packages/react-ui/public/locales/en/translation.tmp.json packages/react-ui/public/locales/en/translation.json"
+    "i18n:extract": "i18next --config packages/kvc-react-ui/i18next-parser.config.js && jq 'to_entries | map({(.key): .key}) | add' packages/kvc-react-ui/public/locales/en/translation.json > packages/kvc-react-ui/public/locales/en/translation.tmp.json && mv packages/kvc-react-ui/public/locales/en/translation.tmp.json packages/kvc-react-ui/public/locales/en/translation.json"
   },
   "private": true,
   "dependencies": {
-    "@activepieces/import-fresh-webpack": "3.3.0",
+    "@kvc/import-fresh-webpack": "3.3.0",
     "@actual-app/api": "25.3.1",
     "@ai-sdk/anthropic": "1.0.5",
     "@ai-sdk/azure": "1.0.10",
@@ -108,7 +121,7 @@
     "@tiptap/react": "2.5.4",
     "@tiptap/starter-kit": "2.5.4",
     "@tiptap/suggestion": "2.5.4",
-    "@tryfabric/martian": "1.2.0",
+    "@kvc/martian": "1.2.0",
     "@types/amqplib": "0.10.5",
     "@types/imapflow": "1.0.18",
     "@types/js-yaml": "4.0.9",
@@ -448,7 +461,7 @@
   },
   "overrides": {
     "cross-spawn": "7.0.6",
-    "@tryfabric/martian": {
+    "@kvc/martian": {
       "@notionhq/client": "$@notionhq/client"
     },
     "vite": {

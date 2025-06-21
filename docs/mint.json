@@ -1,28 +1,28 @@
 {
-  "name": "Activepieces",
+  "name": "KaliVibeCoding",
   "logo": {
-    "light": "./resources/logo/light.svg",
-    "dark": "./resources/logo/dark.svg",
-    "href": "https://www.activepieces.com"
+    "light": "./resources/logo/kvc-logo-light.svg",
+    "dark": "./resources/logo/kvc-logo-dark.svg",
+    "href": "https://www.kalivibecoding.com"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/kvc-favicon.svg",
   "colors": {
-    "primary": "#6e41e2",
-    "dark": "#6838e0",
-    "light": "#c5b3f3",
+    "primary": "#7000FF",
+    "dark": "#FF69B4",
+    "light": "#00F2FF",
     "background": {
-      "dark": "#121212"
+      "dark": "#333333"
     }
   },
   "openapi": [
     "/openapi.json"
   ],
   "metadata": {
-    "description": "Open source no-code business automation· Zapier open source alternative"
+    "description": "KaliVibeCoding - Electrify Your Code. Amplify Your Vision. California Neon-Noir aestehtics."
   },
   "topbarCtaButton": {
-    "name": "Get Started",
-    "url": "https://www.activepieces.com/plans"
+    "name": "Execute the Vision",
+    "url": "https://www.kalivibecoding.com/contact"
   },
   "feedback": {
     "suggestEdit": true,
@@ -31,11 +31,11 @@
   "topbarLinks": [
     {
       "name": "GitHub",
-      "url": "https://github.com/activepieces/activepieces"
+      "url": "https://github.com/KaliVibeCoding/kalivibecoding"
     },
     {
-      "name": "Pieces",
-      "url": "https://www.activepieces.com/pieces"
+      "name": "Showcase",
+      "url": "https://www.kalivibecoding.com/showcase"
     }
   ],
   "tabs": [
@@ -499,13 +499,13 @@
   ],
   "analytics": {
     "posthog": {
-      "apiKey": "phc_7F92HoXJPeGnTKmYv0eOw62FurPMRW9Aqr0TPrDzvHh"
+      "apiKey": "KVC_POSTHOG_API_KEY_PLACEHOLDER"
     }
   },
   "footerSocials": {
-    "website": "https://www.activepieces.com",
-    "github": "https://github.com/activepieces/activepieces",
-    "discord": "https://discord.gg/2jUXBKDdP8"
+    "website": "https://www.kalivibecoding.com",
+    "github": "https://github.com/KaliVibeCoding/kalivibecoding",
+    "discord": "https://discord.gg/YOUR_KVC_DISCORD_INVITE"
   },
   "redirects": [
     {

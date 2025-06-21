@@ -98,7 +98,7 @@
       }
     }
   },
-  "nxCloudAccessToken": "Y2Y3YzhhNjYtZWI4OC00M2Y0LWIwY2ItMWJhNTBjYzA3ZDA0fHJlYWQtb25seQ==",
+  "nxCloudAccessToken": "KVC_CLOUD_ACCESS_TOKEN_PLACEHOLDER",
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",

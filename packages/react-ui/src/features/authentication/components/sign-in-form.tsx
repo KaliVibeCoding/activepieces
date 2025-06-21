@@ -194,7 +194,7 @@ const SignInForm: React.FC = () => {
             onClick={(e) => form.handleSubmit(onSubmit)(e)}
             tabIndex={3}
           >
-            {t('Sign in')}
+                  {t('Illuminate Session')} {/* KVC: Changed "Sign in" to "Illuminate Session" */}
           </Button>
         </form>
       </Form>
