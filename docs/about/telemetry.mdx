@@ -1,32 +1,32 @@
 ---
-title: "Telemetry"
-description: ""
-icon: 'calculator'
+title: "KVC Telemetry" # KVC: Updated title
+description: "Understanding how KaliVibeCoding uses data to electrify your experience." # KVC: Updated description
+icon: 'satellite-dish' # KVC: Changed icon for a more techy/data vibe
 ---
 
-# Why Does Activepieces need data?
+# Why Does KaliVibeCoding Need Data?
 
-As a self-hosted product, gathering usage metrics and insights can be difficult for us. However, these analytics are essential in helping us understand key behaviors and delivering a higher quality experience that meets your needs.
+As a self-hosted product, gathering usage metrics and insights can be difficult for us. However, these analytics are essential in helping us understand key behaviors and delivering a higher quality, more electrifying experience that meets your needs.
 
-To ensure we can continue to improve our product, we have decided to track certain basic behaviors and metrics that are vital for understanding the usage of Activepieces.
+To ensure we can continue to improve our product, we have decided to track certain basic behaviors and metrics that are vital for understanding the usage of KaliVibeCoding.
 
-We have implemented a minimal tracking plan and provide a detailed list of the metrics collected in a separate section.
+We have implemented a minimal tracking plan and provide a detailed list of the metrics collected in a separate section. Our commitment is to transparency and the responsible handling of any data.
 
+# What Does KaliVibeCoding Collect?
 
-# What Does Activepieces Collect?
+We value transparency in data collection and assure you that we do not collect any personally identifiable information beyond what's necessary for product improvement and telemetry event association. The following events are currently being collected:
 
-We value transparency in data collection and assure you that we do not collect any personal information. The following events are currently being collected:
+[Exact Code](https://github.com/KaliVibeCoding/kalivibecoding/blob/main/packages/shared/src/lib/common/telemetry.ts) {/* KVC: Updated URL */}
 
-[Exact Code](https://github.com/activepieces/activepieces/blob/main/packages/shared/src/lib/common/telemetry.ts)
+1. `sequence.published`: Event fired when a sequence (formerly flow) is published {/* KVC: Terminology updated */}
+2. `identity.created`: Event fired when a user signs up (creates their KVC Identity) {/* KVC: Terminology updated */}
+3. `sequence.test`: Event fired when a sequence is tested {/* KVC: Terminology updated */}
+4. `sequence.created`: Event fired when a sequence is created {/* KVC: Terminology updated */}
+5. `start.vibing`: Event fired when a user starts building (starts vibing with KVC) {/* KVC: Brand voice update */}
+6. `blueprint.imported`: Event fired when a blueprint (formerly demo/template) is imported {/* KVC: Terminology updated */}
+7. `sequence.blueprint.imported`: Event fired when a sequence blueprint is imported {/* KVC: Terminology updated */}
 
-1. `flow.published`: Event fired when a flow is published
-2. `signed.up`: Event fired when a user signs up
-3. `flow.test`: Event fired when a flow is tested
-4. `flow.created`: Event fired when a flow is created
-5. `start.building`: Event fired when a user starts building
-6. `demo.imported`: Event fired when a demo is imported
-7. `flow.imported`: Event fired when a flow template is imported
+# Opting Out?
 
-# Opting out?
-
-To opt out, set the environment variable `AP_TELEMETRY_ENABLED=false`
+To opt out of telemetry, set the environment variable `KVC_TELEMETRY_ENABLED=false`. {/* KVC: Variable name updated */}
+Your vibe, your choice.

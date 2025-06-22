@@ -1,10 +1,10 @@
 ---
-title: "Breaking Changes"
-description: "This list shows all versions that include breaking changes and how to upgrade."
-icon: "hammer"
+title: "KVC Breaking Changes" # KVC: Updated title
+description: "This list shows all KaliVibeCoding versions that include breaking changes and how to upgrade your vibe." # KVC: Updated description
+icon: "alert-triangle" # KVC: Updated icon
 ---
 
-## 0.46.0
+## 0.46.0 {/* KVC: Assuming version numbers remain the same unless specified. If KVC has its own versioning, these would change. */}
 
 ### What has changed?
 
@@ -14,18 +14,18 @@ icon: "hammer"
 
 - No action is required for this change.
 - Your published flows will continue to work without interruption.
-- When editing existing flows that use the "Dynamic Value" toggle on "Array of Properties" inputs (such as the "files" parameter in the "Extract Structured Data" action of the "Utility AI" piece), the end user will need to remap the values again.
-- For details on the new UI implementation, refer to this [announcement](https://community.activepieces.com/t/inline-items/8964).
+- When editing existing sequences (formerly flows) that use the "Dynamic Value" toggle on "Array of Properties" inputs (such as the "files" parameter in the "Extract Structured Data" action of the "KVC Utility AI" connector), the end user will need to remap the values again. {/* KVC: Terminology updated */}
+- For details on the new UI implementation, refer to this [announcement](https://community.kalivibecoding.com/t/inline-items/8964). {/* KVC: URL updated (placeholder) */}
 
 ## 0.38.6
 
 ### What has changed?
 
-- Workers no longer rely on the `AP_FLOW_WORKER_CONCURRENCY` and `AP_SCHEDULED_WORKER_CONCURRENCY` environment variables. These values are now retrieved from the app server.
+- Workers no longer rely on the `KVC_SEQUENCE_WORKER_CONCURRENCY` (formerly `AP_FLOW_WORKER_CONCURRENCY`) and `KVC_SCHEDULED_WORKER_CONCURRENCY` environment variables. These values are now retrieved from the app server. {/* KVC: Env var names updated */}
 
 ### When is action necessary?
 
-- If `AP_CONTAINER_TYPE` is set to `WORKER` on the worker machine, and `AP_SCHEDULED_WORKER_CONCURRENCY` or `AP_FLOW_WORKER_CONCURRENCY` are set to zero on the app server, workers will stop processing the queues. To fix this, check the [Separate Worker from App](https://www.activepieces.com/docs/install/configuration/separate-workers) documentation and set the `AP_CONTAINER_TYPE` to fetch the necessary values from the app server. If no container type is set on the worker machine, this is not a breaking change.
+- If `KVC_CONTAINER_TYPE` (formerly `AP_CONTAINER_TYPE`) is set to `WORKER` on the worker machine, and `KVC_SCHEDULED_WORKER_CONCURRENCY` or `KVC_SEQUENCE_WORKER_CONCURRENCY` are set to zero on the app server, workers will stop processing the queues. To fix this, check the [Separate Worker from App](https://www.kalivibecoding.com/docs/install/configuration/separate-workers) documentation and set the `KVC_CONTAINER_TYPE` to fetch the necessary values from the app server. If no container type is set on the worker machine, this is not a breaking change. {/* KVC: Env var names and URL updated */}
 
 ## 0.35.1
 
@@ -47,24 +47,24 @@ icon: "hammer"
 
 ### What has changed?
 
-- Files from actions or triggers are now stored in the database / S3 to support retries from certain steps, and the size of files from actions is now subject to the limit of `AP_MAX_FILE_SIZE_MB`.
-- Files in triggers were previously passed as base64 encoded strings; now they are passed as file paths in the database / S3. Paused flows that have triggers from version 0.29.0 or earlier will no longer work.
+- Files from actions or triggers are now stored in the database / S3 to support retries from certain steps, and the size of files from actions is now subject to the limit of `KVC_MAX_FILE_SIZE_MB` (formerly `AP_MAX_FILE_SIZE_MB`). {/* KVC: Env var name updated */}
+- Files in triggers were previously passed as base64 encoded strings; now they are passed as file paths in the database / S3. Paused sequences (formerly flows) that have triggers from version 0.29.0 or earlier will no longer work. {/* KVC: Terminology updated */}
 
 ### When is action necessary?
-- If you are dealing with large files in the actions, consider increasing the `AP_MAX_FILE_SIZE_MB` to a higher value, and make sure the storage system (database/S3) has enough capacity for the files.
+- If you are dealing with large files in the actions, consider increasing the `KVC_MAX_FILE_SIZE_MB` to a higher value, and make sure the storage system (database/S3) has enough capacity for the files. {/* KVC: Env var name updated */}
 
 
 ## 0.30.0
 
 ### What has changed?
 
-- `AP_SANDBOX_RUN_TIME_SECONDS` is now deprecated and replaced with `AP_FLOW_TIMEOUT_SECONDS`
-- `AP_CODE_SANDBOX_TYPE` is now deprecated and replaced with new mode in `AP_EXECUTION_MODE`
+- `KVC_SANDBOX_RUN_TIME_SECONDS` (formerly `AP_SANDBOX_RUN_TIME_SECONDS`) is now deprecated and replaced with `KVC_SEQUENCE_TIMEOUT_SECONDS` (formerly `AP_FLOW_TIMEOUT_SECONDS`). {/* KVC: Env var names updated */}
+- `KVC_CODE_SANDBOX_TYPE` (formerly `AP_CODE_SANDBOX_TYPE`) is now deprecated and replaced with new mode in `KVC_EXECUTION_MODE`. {/* KVC: Env var names updated */}
 
 ### When is action necessary?
 
-- If you are using `AP_CODE_SANDBOX_TYPE` to `V8_ISOLATE`, you should switch to `AP_EXECUTION_MODE` to `SANDBOX_CODE_ONLY`
-- If you are using `AP_SANDBOX_RUN_TIME_SECONDS` to set the sandbox run time limit, you should switch to `AP_FLOW_TIMEOUT_SECONDS`
+- If you are using `KVC_CODE_SANDBOX_TYPE` to `V8_ISOLATE`, you should switch to `KVC_EXECUTION_MODE` to `SANDBOX_CODE_ONLY`. {/* KVC: Env var names updated */}
+- If you are using `KVC_SANDBOX_RUN_TIME_SECONDS` to set the sandbox run time limit, you should switch to `KVC_SEQUENCE_TIMEOUT_SECONDS`. {/* KVC: Env var names updated */}
 
 ## 0.28.0
 
@@ -75,14 +75,14 @@ icon: "hammer"
     - All pending invitations will be removed.
     - The User Invitation entity has been introduced to send invitations. You can still use the Project Member API to add roles for the user, but it requires the user to exist. If you want to send an email, use the User Invitation, and later a record in the project member will be created after the user accepts and registers an account.
 - **Authentication:**
-    - The `SIGN_UP_ENABLED` environment variable, which allowed multiple users to sign up for different platforms/projects, has been removed. It has been replaced with inviting users to the same platform/project. All old users should continue to work normally.
+    - The `KVC_SIGN_UP_ENABLED` (formerly `SIGN_UP_ENABLED`) environment variable, which allowed multiple users to sign up for different platforms/projects, has been removed. It has been replaced with inviting users to the same platform/project. All old users should continue to work normally. {/* KVC: Env var name updated */}
 
 ### When is action necessary?
 
 - **Project Members:**
 
-If you use the embedding SDK or the create project member API with the `EXTERNAL_CUSTOMER` role, you should start using the `OPERATOR` role instead.
+If you use the KVC embedding SDK or the create project member API with the `EXTERNAL_CUSTOMER` role, you should start using the `OPERATOR` role instead. {/* KVC: Added KVC prefix */}
 
 - **Authentication:**
 
-Multiple platforms/projects are no longer supported in the community edition. Technically, everything is still there, but you have to hack using the API as the authentication system has now changed. If you have already created the users/platforms, they should continue to work, and no action is required.
+Multiple platforms/projects are no longer supported in the KVC community edition. Technically, everything is still there, but you have to hack using the API as the authentication system has now changed. If you have already created the users/platforms, they should continue to work, and no action is required. {/* KVC: Added KVC prefix */}

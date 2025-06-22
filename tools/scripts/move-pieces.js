@@ -28,9 +28,9 @@ function listPackagesInFolders(folderPath) {
 
     // Execute nx g move command
    packages.forEach(({ folder, packageName }) => {
-        const destination = 'packages/pieces/community/' + folder;
+        const destination = 'packages/pieces/community/' + folder; // KVC: This path might need to be 'packages/kvc-connectors/community/' if directory structure is also changed
 
-        const command = `nx g move --projectName=${packageName} --newProjectName=${packageName} --destination=${destination} --importPath=@activepieces/piece-${folder}`;
+        const command = `nx g move --projectName=${packageName} --newProjectName=${packageName} --destination=${destination} --importPath=@kvc/piece-${folder}`; // KVC: Scope updated
         try{
             execSync(command, { stdio: 'inherit' });
         }catch(err){

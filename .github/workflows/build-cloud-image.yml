@@ -29,4 +29,4 @@ jobs:
             linux/amd64
           push: true
           tags: |
-            ghcr.io/activepieces/activepieces-cloud:${{ env.RELEASE }}.${{ github.sha }}
+            ghcr.io/kalivibecoding/kvc-cloud:${{ env.RELEASE }}.${{ github.sha }} # KVC: Image name updated

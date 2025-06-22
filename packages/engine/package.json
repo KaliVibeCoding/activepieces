@@ -1,6 +1,14 @@
 {
-  "name": "@activepieces/engine",
-  "version": "0.5.1",
+  "name": "@kvc/engine",
+  "version": "1.0.0",
+  "description": "Core execution engine for KaliVibeCoding sequences and automation.",
+  "author": "KaliVibeCoding",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KaliVibeCoding/kalivibecoding.git",
+    "directory": "packages/engine"
+  },
   "type": "commonjs"
 }
 

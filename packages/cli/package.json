@@ -1,8 +1,16 @@
 {
-    "name": "@activepieces/cli",
-    "version": "1.0.1",
+    "name": "@kvc/cli",
+    "version": "1.0.0",
+    "description": "Command Line Interface for KaliVibeCoding",
+    "author": "KaliVibeCoding",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/KaliVibeCoding/kalivibecoding.git",
+      "directory": "packages/cli"
+    },
     "bin": {
-        "pieces-cli":"../../dist/cli/src/index.js"
+        "kvc-cli":"../../dist/kvc-cli/src/index.js"
     },
     "scripts": {
         "start": "ts-node src/index.ts",
