@@ -7,7 +7,7 @@ import {
     PiecePropertyMap,
     PropertyType,
     StaticPropsValue,
-} from '@activepieces/pieces-framework'
+} from '@kvc/pieces-framework' // KVC: Scope updated
 import {
     BasicAuthConnectionValue,
     CustomAuthConnectionValue,
@@ -17,7 +17,7 @@ import {
     ExecuteValidateAuthResponse,
     OAuth2ConnectionValueWithApp,
     SecretTextConnectionValue,
-} from '@activepieces/shared'
+} from '@kvc/shared' // KVC: Scope updated
 import { EngineConstants } from '../handler/context/engine-constants'
 import { FlowExecutorContext } from '../handler/context/flow-execution-context'
 import { createFlowsContext } from '../services/flows.service'

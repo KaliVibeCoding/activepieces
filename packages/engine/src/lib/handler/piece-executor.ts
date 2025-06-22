@@ -1,6 +1,6 @@
 import { URL } from 'url'
-import { ActionContext, InputPropertyMap, PauseHook, PauseHookParams, PiecePropertyMap, RespondHook, RespondHookParams, StaticPropsValue, StopHook, StopHookParams, TagsManager } from '@activepieces/pieces-framework'
-import { ActionType, assertNotNullOrUndefined, AUTHENTICATION_PROPERTY_NAME, ExecutionType, FlowRunStatus, GenericStepOutput, isNil, PauseType, PieceAction, RespondResponse, StepOutputStatus } from '@activepieces/shared'
+import { ActionContext, InputPropertyMap, PauseHook, PauseHookParams, PiecePropertyMap, RespondHook, RespondHookParams, StaticPropsValue, StopHook, StopHookParams, TagsManager } from '@kvc/pieces-framework' // KVC: Scope updated
+import { ActionType, assertNotNullOrUndefined, AUTHENTICATION_PROPERTY_NAME, ExecutionType, FlowRunStatus, GenericStepOutput, isNil, PauseType, PieceAction, RespondResponse, StepOutputStatus } from '@kvc/shared' // KVC: Scope updated
 import dayjs from 'dayjs'
 import { continueIfFailureHandler, handleExecutionError, runWithExponentialBackoff } from '../helper/error-handling'
 import { PausedFlowTimeoutError } from '../helper/execution-errors'
@@ -17,7 +17,7 @@ import { ExecutionVerdict } from './context/flow-execution-context'
 
 
 
-const AP_PAUSED_FLOW_TIMEOUT_DAYS = Number(process.env.AP_PAUSED_FLOW_TIMEOUT_DAYS)
+const KVC_PAUSED_FLOW_TIMEOUT_DAYS = Number(process.env.KVC_PAUSED_FLOW_TIMEOUT_DAYS) // KVC: Env var prefix updated
 
 export const pieceExecutor: BaseExecutor<PieceAction> = {
     async handle({
@@ -242,8 +242,8 @@ function createPauseHook(params: CreatePauseHookParams, pauseId: string): PauseH
         switch (req.pauseMetadata.type) {
             case PauseType.DELAY: {
                 const diffInDays = dayjs(req.pauseMetadata.resumeDateTime).diff(dayjs(), 'days')
-                if (diffInDays > AP_PAUSED_FLOW_TIMEOUT_DAYS) {
-                    throw new PausedFlowTimeoutError(undefined, AP_PAUSED_FLOW_TIMEOUT_DAYS)
+                if (diffInDays > KVC_PAUSED_FLOW_TIMEOUT_DAYS) { // KVC: Variable name updated
+                    throw new PausedFlowTimeoutError(undefined, KVC_PAUSED_FLOW_TIMEOUT_DAYS) // KVC: Variable name updated
                 }
                 params.hookResponse = {
                     ...params.hookResponse,

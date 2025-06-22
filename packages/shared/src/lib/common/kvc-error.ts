@@ -5,16 +5,18 @@ import { FlowVersionId } from '../flows/flow-version'
 import { ProjectId } from '../project'
 import { ProjectRole } from '../project-role/project-role'
 import { UserId } from '../user'
-import { ApId } from './id-generator'
+import { ApId } from './id-generator' // KVC: ApId might be a generic type, needs careful review if renaming. Assuming it's generic for now.
 import { Permission } from './security'
 
-export class ActivepiecesError extends Error {
-    constructor(public error: ApErrorParams, message?: string) {
+// KVC: Renaming error class
+export class KVCError extends Error {
+    constructor(public error: KVCErrorParams, message?: string) { // KVC: Parameter type updated
         super(error.code + (message ? `: ${message}` : ''))
     }
 }
 
-export type ApErrorParams =
+// KVC: Renaming error params type
+export type KVCErrorParams =
     | AuthenticationParams
     | AuthorizationErrorParams
     | ConfigNotFoundErrorParams
